@@ -1,5 +1,9 @@
 package controllers;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Id;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -29,9 +33,15 @@ public class TransactionController {
     }
 
     public String makecall(String url, String command, String message) throws Exception {
-        URL urlObj = new URL("http://zipcode.rocks:8085" + url);
-        HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
-        con.setRequestMethod(command);
-        return con.getResponseMessage();
+        //        URL urlObj = new URL(this.rootURL + url);
+        //        HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
+        //        con.setRequestMethod(command);
+        //        return con.getResponseMessage();
+        //      ObjectMapper objectMapper = new ObjectMapper();
+//        URL urlObj = new URL(this.rootURL + url);
+//        return objectMapper.readValue(urlObj, String.class);
+
+        JsonController jsonController = new JsonController(this.rootURL, url);
+        return jsonController.idGet(message);
     }
 }

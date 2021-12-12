@@ -9,7 +9,8 @@ import java.net.URL;
 
 public class YouAreEll {
 
-    TransactionController tt;
+    private TransactionController tt;
+    private String rootURL = "http://zipcode.rocks:8085";
 
     public YouAreEll (TransactionController t) {
         this.tt = t;
@@ -42,10 +43,8 @@ public class YouAreEll {
     }
 
     public String MakeURLCall(String url, String command, String message) throws Exception {
-        URL urlObj = new URL("http://zipcode.rocks:8085" + url);
-        HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
-        con.setRequestMethod(command);
-        return con.getResponseMessage();
+        JsonController jsonController = new JsonController(this.rootURL, url);
+        return jsonController.idGet(message);
     }
 
 
