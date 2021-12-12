@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.codemodel.internal.JAssignmentTarget;
 import controllers.IdController;
+import controllers.JsonController;
 import controllers.MessageController;
 import youareell.YouAreEll;
 
@@ -68,8 +70,10 @@ public class SimpleShell {
 
                 // ids
                 if (list.contains("ids")) {
-                    String results = urll.get_ids();
-                    SimpleShell.prettyPrint(results);
+                    JsonController ctrl = new JsonController();
+                    ctrl.postIds();
+//                    String results = urll.get_ids();
+//                    SimpleShell.prettyPrint(results);
                     continue;
                 }
 

@@ -3,9 +3,11 @@ package controllers;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class JsonController {
@@ -38,9 +40,29 @@ public class JsonController {
             } else {
                 String fieldName = parser.getCurrentName();
                 parser.nextToken();
-                messageBuilder.append("\t\t" + fieldName + " : " + parser.getValueAsString() + "\n");
+                messageBuilder.append("\t\t" + fieldName + " : "
+                        + parser.getValueAsString() + "\n");
             }
         }
         return messageBuilder.toString();
     }
+
+    public void postIds() throws Exception{
+        URL urlObj = new URL("http://zipcode.rocks:8085/ids");
+        HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
+        con.setDoOutput(true);
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Accept", "application/json");
+        con.setRequestProperty("Content-Type", "application/json");
+
+        OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
+        JSONObject obj = new JSONObject();
+        obj.put("github","AmandaJ-Huang");
+        obj.put("name","Amanda Huang");
+        writer.write(obj.toString());
+        writer.flush();
+        con.connect();
+        System.out.println(con.getResponseMessage());
+    }
+
 }

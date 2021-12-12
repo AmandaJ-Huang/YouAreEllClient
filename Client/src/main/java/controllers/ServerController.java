@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.*;
 
 public class ServerController {
     private String rootURL = "http://zipcode.rocks:8085";
-
     private ServerController svr = new ServerController();
 
     private ServerController() {}

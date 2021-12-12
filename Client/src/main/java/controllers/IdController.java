@@ -8,7 +8,7 @@ import models.Id;
 public class IdController {
     private HashMap<String, Id> allIds;
 
-    Id myId;
+    private Id myId;
 
     public ArrayList<Id> getIds() {
         return new ArrayList<Id>();
