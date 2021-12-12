@@ -56,7 +56,7 @@ public class SimpleShell {
             }
             System.out.print(list); //***check to see if list was added correctly***
             history.addAll(list);
-//            try {
+            try {
                 //display history of shell with index
                 if (list.get(list.size() - 1).equals("history")) {
                     for (String s : history)
@@ -109,13 +109,13 @@ public class SimpleShell {
                 // br.close();
 
 
-//            }
+            }
 
             //catch ioexception, output appropriate message, resume waiting for input
-//            catch (IOException e) {
-//                e.printStackTrace();
-//                System.out.println("Input Error, Please try again!");
-//            }
+            catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Input Error, Please try again!");
+            }
             // So what, do you suppose, is the meaning of this comment?
             /** The steps are:
              * 1. parse the input to obtain the command and any parameters

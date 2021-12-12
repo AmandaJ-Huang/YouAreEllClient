@@ -2,6 +2,11 @@ package youareell;
 
 import controllers.*;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class YouAreEll {
 
     TransactionController tt;
@@ -20,20 +25,27 @@ public class YouAreEll {
             new TransactionController(
                 new MessageController(), new IdController()
         ));
-        System.out.println(urlhandler.MakeURLCall("/ids", "GET", ""));
-        System.out.println(urlhandler.MakeURLCall("/messages", "GET", ""));
+        try {
+            System.out.println(urlhandler.MakeURLCall("/ids", "GET", ""));
+            System.out.println(urlhandler.MakeURLCall("/messages", "GET", ""));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String get_ids() {
         return tt.makecall("/ids", "GET", "");
     }
 
-    public String get_messages() {
+    public String get_messages() throws Exception {
         return MakeURLCall("/messages", "GET", "");
     }
 
-    public String MakeURLCall(String url, String command, String message) {
-        return null;
+    public String MakeURLCall(String url, String command, String message) throws Exception {
+        URL urlObj = new URL("http://zipcode.rocks:8085" + url);
+        HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
+        con.setRequestMethod(command);
+        return con.getResponseMessage();
     }
 
 
