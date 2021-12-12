@@ -3,6 +3,8 @@ package controllers;
 import models.Id;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 public class TransactionController {
@@ -26,7 +28,10 @@ public class TransactionController {
         return ("Id registered.");
     }
 
-    public String makecall(String url, String command, String message) {
-        return "";
+    public String makecall(String url, String command, String message) throws Exception {
+        URL urlObj = new URL("http://zipcode.rocks:8085" + url);
+        HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
+        con.setRequestMethod(command);
+        return con.getResponseMessage();
     }
 }

@@ -33,7 +33,7 @@ public class YouAreEll {
         }
     }
 
-    public String get_ids() {
+    public String get_ids() throws Exception {
         return tt.makecall("/ids", "GET", "");
     }
 
