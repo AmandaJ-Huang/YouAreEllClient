@@ -15,6 +15,7 @@ public class MessageController {
     // why a HashSet??
 
     private ObjectMapper objectMapper = new ObjectMapper();
+    private Message myMsg;
 
     public ArrayList<Message> getMessages() {
         String getMsgsUrl = ServerController.urlGet("/messages");
@@ -61,8 +62,9 @@ public class MessageController {
         String message;
         try {
             message = objectMapper.writeValueAsString(msg);
-            postMsgsUrl = ServerController.urlPost("/ids" + msg.getFromId() + "/messages", message);
-            return objectMapper.readValue(postMsgsUrl, Message.class);
+            postMsgsUrl = ServerController.urlPost("/ids/AmandaJ-Huang/messages", message);
+            myMsg = objectMapper.readValue(postMsgsUrl, Message.class);
+            return myMsg;
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -20,10 +20,12 @@ public class Message implements Comparable {
 
     @JsonProperty("message")
     private String message = "";
-    @JsonProperty("toId")
+    @JsonProperty("toid")
     private String toId = "";
-    @JsonProperty("fromId")
+    @JsonProperty("fromid")
     private String fromId = "";
+
+    @JsonIgnoreProperties
     private String timestamp = "";
     @JsonProperty("sequence")
     private String seqId = "";

@@ -48,14 +48,16 @@ public class TransactionController {
         return msgCtrl.getMessagesFromFriend(githubName, friendName);
     }
 
-    public Message postMessage(String githubName, String message) {
+    public String postMessage(String githubName, String message) {
         Message send = new Message(message, githubName);
-        return msgCtrl.postMessage(send);
+        send = msgCtrl.postMessage(send);
+        return ("Message sent to no one.");
     }
 
-    public Message postMessageToFriend(String githubName, String friendName, String message) {
+    public String postMessageToFriend(String githubName, String friendName, String message) {
         Message send = new Message(message, githubName, friendName);
-        return msgCtrl.postMessage(send);
+        send = msgCtrl.postMessage(send);
+        return ("Message sent to friend.");
     }
 
     public String makecall(String url, String command, String message) throws Exception {
