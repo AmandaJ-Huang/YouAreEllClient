@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -10,6 +11,7 @@ public class Id {
     @JsonProperty("userid")
     private String uid = "";
 
+    @JsonIgnoreProperties
     private String name = "";
     private String github = "";
 

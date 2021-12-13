@@ -30,6 +30,17 @@ public class IdController {
         // create json from id
         // call server, get json result Or error
         // result json to Id obj
+
+        String postIdsUrl;
+        String json;
+        try {
+            json = objectMapper.writeValueAsString(id);
+            postIdsUrl = ServerController.urlPost("/ids", json);
+            myId = objectMapper.readValue(postIdsUrl, Id.class);
+            return myId;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

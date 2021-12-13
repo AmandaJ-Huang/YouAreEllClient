@@ -33,13 +33,11 @@ public class ServerController {
         try {
             HttpGet request = new HttpGet(rootURL + subDir);
             CloseableHttpResponse response = httpClient.execute(request);
-
             HttpEntity entity = response.getEntity();
 
             if (entity != null) {
                 result = EntityUtils.toString(entity);
             }
-
             response.close();
             httpClient.close();
 
@@ -50,7 +48,7 @@ public class ServerController {
         return result;
     }
 
-    public static String urlPost(String subDir, String json) throws IOException {
+    public static String urlPost(String subDir, String json) {
         // url -> /ids/
         // create json from Id
         // request
@@ -61,16 +59,13 @@ public class ServerController {
 
         try {
             HttpPost post = new HttpPost(rootURL + subDir);
-            CloseableHttpResponse response = httpClient.execute(post);
-
             post.setEntity(new StringEntity(json));
-
+            CloseableHttpResponse response = httpClient.execute(post);
             HttpEntity entity = response.getEntity();
 
             if (entity != null) {
                 result = EntityUtils.toString(entity);
             }
-
             response.close();
             httpClient.close();
 
@@ -88,16 +83,13 @@ public class ServerController {
 
         try {
             HttpPut put = new HttpPut(rootURL + subDir);
-            CloseableHttpResponse response = httpClient.execute(put);
-
             put.setEntity(new StringEntity(json));
-
+            CloseableHttpResponse response = httpClient.execute(put);
             HttpEntity entity = response.getEntity();
 
             if (entity != null) {
                 result = EntityUtils.toString(entity);
             }
-
             response.close();
             httpClient.close();
 

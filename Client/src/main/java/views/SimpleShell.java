@@ -72,8 +72,9 @@ public class SimpleShell {
 
                 // Specific Commands.
 
-                // ids
-                if (list.contains("ids")) {
+                // id
+                // returns all available IDs with command ids
+                if (list.contains("ids") && list.size() == 1) {
                     String results = teeCtrlr
                             .getIds()
                             .stream()
@@ -83,12 +84,13 @@ public class SimpleShell {
                     continue;
                 }
 
-//                // post id
-//                if (list.contains("ids") && list.size()>1) {
-//                    JsonController ctrl = new JsonController();
-//                    ctrl.postIds();
-//                    continue;
-//                }
+                // posts Name and GitHubId to server
+                if (list.contains("ids") && list.size() == 3) {
+                    String results = teeCtrlr
+                            .postId(list.get(1), list.get(2));
+                    SimpleShell.prettyPrint(results);
+                    continue;
+                }
 
                 // messages
                 if (list.contains("messages")) {
