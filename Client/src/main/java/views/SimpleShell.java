@@ -25,7 +25,7 @@ public class SimpleShell {
         // yep, make an effort to format things nicely, eh?
         System.out.println(output);
     }
-    public static void main(String[] args) throws java.io.IOException {
+    public static void main(String[] args) throws IOException {
 
         YouAreEll urll = new YouAreEll(new MessageController(), new IdController());
         TransactionController teeCtrlr = new TransactionController(new MessageController(), new IdController());
@@ -111,7 +111,35 @@ public class SimpleShell {
                     continue;
                 }
 
-                // get messages
+                // get messages by Id
+                if (list.contains("messages") && list.size() == 2) {
+                    String results = teeCtrlr
+                            .getMessagesById(list.get(1))
+                            .stream()
+                            .map(Message::toString)
+                            .collect(Collectors.joining());
+                    SimpleShell.prettyPrint(results);
+                    continue;
+                }
+
+                // get message by sequence
+                if (list.contains("messages") && list.size() == 3) {
+                    Message input = teeCtrlr.getMessageBySequence(list.get(1), list.get(2));
+                    SimpleShell.prettyPrint(input.toString());
+                    continue;
+                }
+
+                // get messages from friend
+                if (list.contains("messages") && list.size() == 4) {
+                    String results = teeCtrlr
+                            .getMessageFromFriend(list.get(1), list.get(3))
+                            .stream()
+                            .map(Message::toString)
+                            .collect(Collectors.joining());
+                    SimpleShell.prettyPrint(results);
+                    continue;
+                }
+
 
                 // posts message
                 if (list.contains("send") && list.size() >= 3) {
