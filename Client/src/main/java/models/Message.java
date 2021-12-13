@@ -33,11 +33,6 @@ public class Message implements Comparable {
         this.toId = "";
     }
 
-    @Override
-    public String toString() {
-        return "to: " + this.toId + "\nfrom: "+ this.fromId + "\n" + this.message + "\n----\n";
-    }
-
     public int compareTo(Object o) {
         return this.seqId.compareTo(((Message) o).getSeqId());
     }
@@ -72,5 +67,16 @@ public class Message implements Comparable {
 
     public String getSeqId() {
         return seqId;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("\n\t{")
+                .append("\n\t\tto: " + this.toId)
+                .append("\n\t\tfrom: " + this.fromId)
+                .append("\n\t\tmessage: " + this.message)
+                .append("\n\t},")
+                .toString();
     }
 }

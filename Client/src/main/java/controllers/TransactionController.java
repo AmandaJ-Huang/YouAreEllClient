@@ -24,6 +24,12 @@ public class TransactionController {
         return ("Id registered.");
     }
 
+    public String putID(String changeName, String githubName) {
+        Id cid = new Id(changeName, idCtrl.getMyId().getGithub());
+
+        return ("Name changed.");
+    }
+
     public String makecall(String url, String command, String message) throws Exception {
         JsonController jsonController = new JsonController(this.rootURL, url);
         return jsonController.idGet(message);

@@ -92,8 +92,16 @@ public class SimpleShell {
                     continue;
                 }
 
+                // changes Name for existing GitHubId in server
+                if (list.contains("ids") && list.size() == 2) {
+
+                    continue;
+                }
+
                 // messages
                 if (list.contains("messages")) {
+
+
                     String results = urll.get_messages();
                     SimpleShell.prettyPrint(results);
                     continue;

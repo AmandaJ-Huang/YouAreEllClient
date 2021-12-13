@@ -15,6 +15,10 @@ public class IdController {
 
     private Id myId;
 
+    public Id getMyId() {
+        return myId;
+    }
+
     public ArrayList<Id> getIds() {
         String getIdsUrl = ServerController.urlGet("/ids");
         try {
@@ -45,6 +49,16 @@ public class IdController {
     }
 
     public Id putId(Id id) {
+        String putIdsUrl;
+        String json;
+        try {
+            json = objectMapper.writeValueAsString(id);
+            putIdsUrl = ServerController.urlPut("/ids", json);
+            myId = objectMapper.readValue(putIdsUrl, Id.class);
+            return myId;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
  
