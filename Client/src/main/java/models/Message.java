@@ -1,6 +1,9 @@
 package models;
 
-/* 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/*
  * POJO for an Message object
  *
  *   {
@@ -15,22 +18,33 @@ package models;
  */
 public class Message implements Comparable {
 
+    @JsonProperty("message")
     private String message = "";
+    @JsonProperty("toId")
     private String toId = "";
+    @JsonProperty("fromId")
     private String fromId = "";
     private String timestamp = "";
+    @JsonProperty("sequence")
     private String seqId = "";
 
-    public Message (String message, String fromId, String toId) {
-        this.message = message;
-        this.fromId = fromId;
-        this.toId = toId;
+    public Message () {
     }
 
     public Message (String message, String fromId) {
+        this(message, fromId, "", "", "");
+    }
+
+    public Message (String message, String fromId, String toId) {
+        this(message, fromId, toId, "", "");
+    }
+
+    public Message (String message, String fromId, String toId, String timestamp, String seqId) {
         this.message = message;
         this.fromId = fromId;
-        this.toId = "";
+        this.toId = toId;
+        this.timestamp = timestamp;
+        this.seqId = seqId;
     }
 
     public int compareTo(Object o) {
@@ -73,6 +87,8 @@ public class Message implements Comparable {
     public String toString() {
         return new StringBuilder()
                 .append("\n\t{")
+                .append("\n\t\tsequence: " + this.seqId)
+                .append("\n\t\ttimestamp: " + this.timestamp)
                 .append("\n\t\tto: " + this.toId)
                 .append("\n\t\tfrom: " + this.fromId)
                 .append("\n\t\tmessage: " + this.message)

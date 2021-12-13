@@ -14,6 +14,7 @@ import controllers.JsonController;
 import controllers.MessageController;
 import controllers.TransactionController;
 import models.Id;
+import models.Message;
 import youareell.YouAreEll;
 
 // Simple Shell is a Console view for youareell.YouAreEll.
@@ -98,15 +99,40 @@ public class SimpleShell {
                     continue;
                 }
 
-                // messages
-                if (list.contains("messages")) {
-
-
-                    String results = urll.get_messages();
+                // message
+                // returns all messages from my githubName
+                if (list.contains("messages") && list.size() == 1) {
+                    String results = teeCtrlr
+                            .getAllMessages()
+                            .stream()
+                            .map(Message::toString)
+                            .collect(Collectors.joining());
                     SimpleShell.prettyPrint(results);
                     continue;
                 }
-                // you need to add a bunch more.
+
+                // posts message
+                if (list.contains("send") && list.size() >= 3) {
+                    int endingIndex = list.size();
+                    int indexOfTo = (list.size()-2);
+                    if (list.get(indexOfTo).equals("to")) {
+                        String myName = list.get(1);
+                        String friendName = list.get(list.size()-1);
+                        String message = "" + list.subList(2, indexOfTo);
+                        String results = teeCtrlr
+                                .postMessageToFriend(myName, friendName, message)
+                                .toString();
+                        SimpleShell.prettyPrint(results);
+                    } else {
+                        String message = "" + list.subList(2, endingIndex);
+                        String myName = list.get(1);
+                        String results = teeCtrlr
+                                .postMessage(myName, message)
+                                .toString();
+                        SimpleShell.prettyPrint(results);
+                    }
+                    continue;
+                }
 
                 //!! command returns the last command in history
                 if (list.get(list.size() - 1).equals("!!")) {

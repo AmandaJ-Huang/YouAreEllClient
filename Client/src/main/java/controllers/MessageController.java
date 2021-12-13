@@ -26,8 +26,8 @@ public class MessageController {
         }
         return new ArrayList<>();
     }
-    public ArrayList<Message> getMessagesForId(Id id) {
-        String getMsgsUrl = ServerController.urlGet("/ids/" + id.getName() + "/messages");
+    public ArrayList<Message> getMessagesForId(String github) {
+        String getMsgsUrl = ServerController.urlGet("/ids/" + github + "/messages");
         try {
             return objectMapper
                     .readValue(getMsgsUrl, new TypeReference<ArrayList<Message>>() {});
@@ -36,8 +36,8 @@ public class MessageController {
         }
         return new ArrayList<>();
     }
-    public Message getMessageForSequence(Id id, String seq) {
-        String getMsgsUrl = ServerController.urlGet("/ids/" + id.getName() + "/messages/" + seq);
+    public Message getMessageForSequence(String github, String seq) {
+        String getMsgsUrl = ServerController.urlGet("/ids/" + github + "/messages/" + seq);
         try {
             return objectMapper.readValue(getMsgsUrl, Message.class);
         } catch (IOException e) {
@@ -45,9 +45,9 @@ public class MessageController {
         }
         return null;
     }
-    public ArrayList<Message> getMessagesFromFriend(Id myId, Id friendId) {
-        String getMsgsUrl = ServerController.urlGet("/ids/" + myId.getName()
-                + "/from/" + friendId.getName());
+    public ArrayList<Message> getMessagesFromFriend(String github, String friendName) {
+        String getMsgsUrl = ServerController.urlGet("/ids/" + github
+                + "/from/" + friendName);
         try {
             return objectMapper.readValue(getMsgsUrl, new TypeReference<ArrayList<Message>>() {});
         } catch (IOException e) {
@@ -56,12 +56,12 @@ public class MessageController {
         return null;
     }
 
-    public Message postMessage(Id myId, Id toId, Message msg) {
+    public Message postMessage(Message msg) {
         String postMsgsUrl;
         String message;
         try {
             message = objectMapper.writeValueAsString(msg);
-            postMsgsUrl = ServerController.urlPost("/ids" + myId.getName() + "/messages", message);
+            postMsgsUrl = ServerController.urlPost("/ids" + msg.getFromId() + "/messages", message);
             return objectMapper.readValue(postMsgsUrl, Message.class);
         } catch (IOException e) {
             e.printStackTrace();
