@@ -6,11 +6,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.sun.codemodel.internal.JAssignmentTarget;
 import controllers.IdController;
 import controllers.JsonController;
 import controllers.MessageController;
+import controllers.TransactionController;
+import models.Id;
 import youareell.YouAreEll;
 
 // Simple Shell is a Console view for youareell.YouAreEll.
@@ -24,6 +27,7 @@ public class SimpleShell {
     public static void main(String[] args) throws java.io.IOException {
 
         YouAreEll urll = new YouAreEll(new MessageController(), new IdController());
+        TransactionController teeCtrlr = new TransactionController(new MessageController(), new IdController());
         
         String commandLine;
         BufferedReader console = new BufferedReader
@@ -70,12 +74,21 @@ public class SimpleShell {
 
                 // ids
                 if (list.contains("ids")) {
-                    JsonController ctrl = new JsonController();
-                    ctrl.postIds();
-//                    String results = urll.get_ids();
-//                    SimpleShell.prettyPrint(results);
+                    String results = teeCtrlr
+                            .getIds()
+                            .stream()
+                            .map(Id::toString)
+                            .collect(Collectors.joining());
+                    SimpleShell.prettyPrint(results);
                     continue;
                 }
+
+//                // post id
+//                if (list.contains("ids") && list.size()>1) {
+//                    JsonController ctrl = new JsonController();
+//                    ctrl.postIds();
+//                    continue;
+//                }
 
                 // messages
                 if (list.contains("messages")) {

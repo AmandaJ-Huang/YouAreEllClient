@@ -1,14 +1,30 @@
 package models;
 
-/* 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
+/*
  * POJO for an Id object
  */
 public class Id {
+    @JsonProperty("userid")
     private String uid = "";
+
     private String name = "";
     private String github = "";
 
-    public Id (String name, String githubId) {}
+    public Id() {
+    }
+
+    public Id(String name, String githubId) {
+        this("", name, githubId);
+    }
+
+    public Id (String uid, String name, String githubId) {
+        this.uid = uid;
+        this.name = name;
+        this.github = githubId;
+    }
 
     public String getUid() {
         return uid;
@@ -36,6 +52,12 @@ public class Id {
 
     @Override
     public String toString() {
-        return this.name + " (" + this.github + ") ";
+        return new StringBuilder()
+                .append("\n\t{")
+                .append("\n\t\tuserid: " + this.uid)
+                .append("\n\t\tname: " + this.name)
+                .append("\n\t\tgithub: " + this.github)
+                .append("\n\t},")
+                .toString();
     }
 }

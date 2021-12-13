@@ -1,24 +1,35 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import models.Id;
 
 public class IdController {
     private HashMap<String, Id> allIds;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     private Id myId;
 
     public ArrayList<Id> getIds() {
-        return new ArrayList<Id>();
+        String getIdsUrl = ServerController.urlGet("/ids");
+        try {
+            return objectMapper
+                    .readValue(getIdsUrl, new TypeReference<ArrayList<Id>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     public Id postId(Id id) {
         // create json from id
         // call server, get json result Or error
         // result json to Id obj
-
         return null;
     }
 
