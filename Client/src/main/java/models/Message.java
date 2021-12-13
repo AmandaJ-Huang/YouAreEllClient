@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 *
  */
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class Message implements Comparable {
 
     @JsonProperty("message")
@@ -34,11 +35,11 @@ public class Message implements Comparable {
     }
 
     public Message (String message, String fromId) {
-        this(message, fromId, "", "", "");
+        this(message, fromId, "", null, "");
     }
 
     public Message (String message, String fromId, String toId) {
-        this(message, fromId, toId, "", "");
+        this(message, fromId, toId, null, "");
     }
 
     public Message (String message, String fromId, String toId, String timestamp, String seqId) {
@@ -91,8 +92,8 @@ public class Message implements Comparable {
                 .append("\n\t{")
                 .append("\n\t\tsequence: " + this.seqId)
                 .append("\n\t\ttimestamp: " + this.timestamp)
-                .append("\n\t\tto: " + this.toId)
                 .append("\n\t\tfrom: " + this.fromId)
+                .append("\n\t\tto: " + this.toId)
                 .append("\n\t\tmessage: " + this.message)
                 .append("\n\t},")
                 .toString();

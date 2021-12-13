@@ -6,7 +6,6 @@ import java.util.HashSet;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.Id;
 import models.Message;
 
 public class MessageController {
@@ -47,8 +46,7 @@ public class MessageController {
         return null;
     }
     public ArrayList<Message> getMessagesFromFriend(String github, String friendName) {
-        String getMsgsUrl = ServerController.urlGet("/ids/" + github
-                + "/from/" + friendName);
+        String getMsgsUrl = ServerController.urlGet("/ids/" + github + "/from/" + friendName);
         try {
             return objectMapper.readValue(getMsgsUrl, new TypeReference<ArrayList<Message>>() {});
         } catch (IOException e) {

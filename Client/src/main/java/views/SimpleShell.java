@@ -111,24 +111,33 @@ public class SimpleShell {
                     continue;
                 }
 
+                // get messages
+
                 // posts message
                 if (list.contains("send") && list.size() >= 3) {
-                    int endingIndex = list.size();
+                    int endingIndex = list.size()-1;
                     int indexOfTo = (list.size()-2);
                     if (list.get(indexOfTo).equals("to")) {
                         String myName = list.get(1);
                         String friendName = list.get(list.size()-1);
-                        String message = "" + list.subList(2, indexOfTo);
+                        String message = "";
+
+                        for (int i = 2; i < indexOfTo; i++) {
+                            message += list.get(i);
+                        }
+
                         String results = teeCtrlr
-                                .postMessageToFriend(myName, friendName, message)
-                                .toString();
+                                .postMessageToFriend(myName, friendName, message);
                         SimpleShell.prettyPrint(results);
                     } else {
-                        String message = "" + list.subList(2, endingIndex);
+                        String message = "";
+
+                        for (int i = 2; i <= endingIndex; i++) {
+                            message += list.get(i);
+                        }
                         String myName = list.get(1);
                         String results = teeCtrlr
-                                .postMessage(myName, message)
-                                .toString();
+                                .postMessage(myName, message);
                         SimpleShell.prettyPrint(results);
                     }
                     continue;
